@@ -7,14 +7,14 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-
 function HomePage() {
+    const [apiEndpoint, setApiEndpoint] = useState("https:YOUR_API_GATEWAY_ENDPOINT");
     const [products, setProducts] = useState([]);
-    const [product, setProduct] = useState({});
+    const [order, setOrder] = useState({productId: "", name: "", description: "", price: 0, qty: 0, userName: "", email: ""});
 
     const getProducts = () => {
         try {
-            fetch("http://localhost:8080/products")
+            fetch(`${apiEndpoint}/products`)
             .then(res => res.json())
             .then(productData => {
                 setProducts(productData);
@@ -35,13 +35,21 @@ function HomePage() {
     const setOrderedProduct = (evt) => {
         let productId = evt.target.value;
         let selectedProduct = products.filter(product => product.productId === productId);
-        setProduct(selectedProduct);
+        selectedProduct = selectedProduct[0];
+        setOrder({
+            ...order, 
+            productId: selectedProduct.productId,
+            name: selectedProduct.name,
+            description: selectedProduct.description,
+            price: selectedProduct.price,
+            qty: selectedProduct.qty
+        });
     }
 
     const orderProduct = () => {
-        fetch('http://localhost:8080/product', {
+        fetch(`${apiEndpoint}/order`, {
             method: 'POST',
-            body: JSON.stringify(product),
+            body: JSON.stringify(order),
             headers: {
                'Content-type': 'application/json; charset=UTF-8',
             },
@@ -60,12 +68,16 @@ function HomePage() {
                         <Form>
                             <Form.Group className="mb-3" controlId="formBasicText">
                                 <Form.Label>Full Name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder="" 
+                                              value={order.userName} 
+                                              onChange={evt => setOrder({...order, userName:evt.target.value})} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="" />
+                                <Form.Control type="email" placeholder="" 
+                                              value={order.email} 
+                                              onChange={evt => setOrder({...order, email:evt.target.value})} />
                             </Form.Group>
 
                             <h2>Products</h2>

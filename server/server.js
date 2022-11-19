@@ -41,9 +41,9 @@ app.get('/products', (req, res) => {
   res.json(PRODUCTS);
 });
 
-// POST: http://localhost:8080/product
-app.post('/product', (req, res) => {
-    console.log(req.body[0]);
+// POST: http://localhost:8080/order
+app.post('/order', (req, res) => {
+    console.log(req.body);
     res.json({"success": true});
   });
 
