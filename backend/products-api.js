@@ -16,14 +16,17 @@ async function getProducts() {
   
     const products = await scanTable(params, []);
     console.log(products);
-    const body =  {
-        products: products
-    };
+    const body =  products;
   
     return {
         statusCode: 200,
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type" : "application/json",
+            "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+            "Access-Control-Allow-Methods" : "OPTIONS,GET",
+            "Access-Control-Allow-Credentials" : true,
+            "Access-Control-Allow-Origin" : "*",
+            "X-Requested-With" : "*"
         },
         body: JSON.stringify(body)
     };
@@ -62,7 +65,12 @@ async function saveProduct(request) {
         return {
             statusCode: 200,
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type" : "application/json",
+                "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+                "Access-Control-Allow-Methods" : "OPTIONS,POST",
+                "Access-Control-Allow-Credentials" : true,
+                "Access-Control-Allow-Origin" : "*",
+                "X-Requested-With" : "*"
             },
             body: JSON.stringify(body)
         };
@@ -89,7 +97,12 @@ exports.handler = async function(event) {
         response = {
             statusCode: 404,
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type" : "application/json",
+                "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+                "Access-Control-Allow-Methods" : "OPTIONS,GET",
+                "Access-Control-Allow-Credentials" : true,
+                "Access-Control-Allow-Origin" : "*",
+                "X-Requested-With" : "*"
             },
             body: 'Page not found'
         };
