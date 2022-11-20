@@ -1,5 +1,5 @@
 # AWS_Kinesis_demo
-Code for AWS Kinesis [Playlist videos](https://www.youtube.com/@cumuluscycles)
+Code for AWS Kinesis [Playlist video](https://www.youtube.com/watch?v=McxSsTmbp00)
 
 
 ## Arch Diagram
